@@ -1,0 +1,11 @@
+{% extends "exerdice_core/base.html" %}
+{% block title %}Detail{% endblock %}
+{% block content %}
+{% if result %}
+    <h3>{{result.id}} </h3>
+
+    <p>{{result.name}</p>
+        {%else%}
+    <p>No results available.</p>
+{% endif %}
+{% endblock %}

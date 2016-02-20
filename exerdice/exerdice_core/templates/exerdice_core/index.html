@@ -1,0 +1,18 @@
+{% extends "exerdice_core/base.html" %}
+{% block title %}PhysioSpace{% endblock %}
+
+{% block content %}
+    {% if not user.is_anonymous %}
+            {% if result_list %}
+                <ul>
+                    {% for result in result_list %}
+                        <li><a href={% url "detail" %}/{{ result.id }}/>{{ result.id }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No results available.</p>
+            {% endif %}
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+{% autoescape off %}
+<head lang="en">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+
+
+
+<div id="navbar">
+    {% block navbar %}
+        <ul>
+            <div class="container">
+                <div class="header clearfix">
+                    <nav>
+                        <ul class = 'nav nav-pills pull-right'>
+                            <li class="{% ifequal request.path '/'%} active {% endifequal%}">
+                                <a href="{% url "index" %}">Home</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <h3>ExerDice</h3>
+                </div>
+            </div>
+        </ul>
+    {% endblock %}
+</div>
+<div id="content">
+
+<div>
+    {% block content %}</div>{% endblock %}
+</div>
+</div>
+</body>
+</html>
+{% endautoescape %}
