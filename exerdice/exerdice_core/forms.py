@@ -5,26 +5,36 @@ from django import forms
 
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
-from .models import ExerciseDefinition
+from .models import Workout
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
 from crispy_forms.bootstrap import TabHolder, Tab
 from crispy_forms.layout import Submit, Fieldset, MultiField, Div
 
-class ExerciseForm(forms.ModelForm):
-    choices = ExerciseDefinition.objects.all() #todo !!! save this on upload
-    helper = FormHelper()
-    helper.add_input(Submit('submit','Submit'))
-    helper.layout = Layout(
-         Fieldset(
-             'exercise_name',
-         ),
-    )
-    class Meta:
-        model = ExerciseDefinition
-        fields = ('name',)
+# class ExerciseForm(forms.ModelForm):
+#     choices = ExerciseDefinition.objects.all() #todo !!! save this on upload
+#     helper = FormHelper()
+#     helper.add_input(Submit('submit','Submit'))
+#     helper.layout = Layout(
+#          Fieldset(
+#              'exercise_name',
+#          ),
+#     )
+#     class Meta:
+#         model = ExerciseDefinition
+#         fields = ('name',)
 
-####
+class WorkoutForm(forms.ModelForm):
+    helper = FormHelper()
+    helper.add_input(Submit('submit','roll'))
+    helper.layout = Layout(
+          Fieldset(
+              'exercise_name',
+          ),
+     )
+    class Meta:
+        model = Workout
+        fields = ()
 
 class PasswordResetRequestForm(forms.Form):
     email_or_username = forms.CharField(label=("Email Or Username"), max_length=254)

@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from .models import Die, ExerciseDefinition, ExerciseTask
-from .forms import ExerciseForm
-from django.shortcuts import get_object_or_404
+from .models import Die, ExerciseDefinition, ExerciseTask, Workout
+from .forms import WorkoutForm
+from django.shortcuts import get_object_or_404, render, redirect, render_to_response
+
+from django.template import RequestContext
+import random
 
 def index(request):
     result_list = Die.objects.all()  # all the results
@@ -10,11 +13,21 @@ def index(request):
 
 
 def roll(request):
-    pass
     if request.method == "POST":
-        form = ExerciseForm(request.POST)
+        form = WorkoutForm(request.POST)
         if form.is_valid():  # todo refactor cleaning up
-            new = ExerciseTask()
+            new = Workout.objects.create()
+            print(new)
+            num_task = random.randint(1,5)+random.randint(1,5)
+            for _ in xrange(num_task):
+                e = ExerciseTask()
+                eid = random.choice([s.id for s in ExerciseDefinition.objects.all()])
+                e.exercise_id  = eid
+                e.save()
+                new.exercise_tasks.add(e)
+                new.save()
+            print(new)
+
             #tmp_up = request.POST['up']
             #newupload.up = sanitize_txt(tmp_up)
             #tmp_down = request.POST['down']
@@ -54,19 +67,23 @@ def roll(request):
                 #enddate = datetime.date.today() - datetime.timedelta(days=1)
                 #print("delete{}".format(ResultData.objects.filter(created_on__lt=enddate)))
                 #ResultData.objects.filter(created_on__lt=enddate).delete()
-
-            return redirect('detail/'+new_result_object.id+"/")  # redirect to .views.thanks
+    #
+            return redirect('/detail/'+str(new.id)+"/")  # redirect to .views.thanks
     else:
-        form = ExerciseForm()
-
+         form = WorkoutForm()
+    #
     return render_to_response('exerdice_core/roll.html', {'form': form}, RequestContext(request))
-
-
+    #
+    #
 
 
 
 
 
 def detail(request, detail_id):
-    result = get_object_or_404(ExerciseDefinition , pk=detail_id)
-    return render(request, 'exerdice_core/detail.html', {'result': result})
+    result = get_object_or_404(Workout , pk=detail_id)
+    print(result, "RESULT")
+    tsk = result.exercise_tasks.all()
+    bla = ", ".join([str(t) for t in tsk])
+    print("bla",bla)
+    return render(request, 'exerdice_core/detail.html', {'result': tsk, 'bla':bla})
