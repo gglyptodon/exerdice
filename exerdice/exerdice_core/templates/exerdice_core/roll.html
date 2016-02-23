@@ -2,12 +2,11 @@
 {% block title %}Submit{% endblock %}
 {% block content %}
 <div class="container">
-<h1>Roll </h1>
-
+<div class="jumbotron">
     <p>
         <form method="post" action="" enctype="multipart/form-data"  > {% csrf_token%}
     {{form.as_p}}
-    <button class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary">Roll!</button>
 
 
 </form>
@@ -37,5 +36,5 @@
 
 
 </div>
-
+</div>
 {% endblock %}

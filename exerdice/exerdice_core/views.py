@@ -25,8 +25,9 @@ def roll(request):
                 e.exercise_id  = eid
                 e.save()
                 new.exercise_tasks.add(e)
+                print(str(e), "E saved")
                 new.save()
-            print(new)
+            print(new, "NEW")
 
             #tmp_up = request.POST['up']
             #newupload.up = sanitize_txt(tmp_up)
@@ -84,6 +85,7 @@ def detail(request, detail_id):
     result = get_object_or_404(Workout , pk=detail_id)
     print(result, "RESULT")
     tsk = result.exercise_tasks.all()
-    bla = ", ".join([str(t) for t in tsk])
+    result = [str(t) for t in tsk]
+    bla = ", ".join([t.str_for_display() for t in tsk])
     print("bla",bla)
-    return render(request, 'exerdice_core/detail.html', {'result': tsk, 'bla':bla})
+    return render(request, 'exerdice_core/detail.html', {'result': result, 'bla':bla})

@@ -46,16 +46,18 @@ class ExerciseTask(ModelWithTimestamp):
     exercise = models.ForeignKey(to=ExerciseDefinition)
     amount = models.IntegerField(null=True, blank=True)
     datetime_performed = models.DateTimeField(null=True, blank=True)
-
-
+    def str_for_display(self):
+        return "{}: {}".format(self.exercise.name, self.amount)
     def __unicode__(self):
-        tmp = ""
-        if self.amount:
-            tmp = str(self.amount)
-        if self.datetime_performed:
-            tmp += str(self.datetime_performed)
-        return str(self.exercise.name + " Amount: " + tmp)
-#
+        return self.str_for_display()
+#         tmp = ""
+#         if self.amount:
+#             tmp = str(self.amount)
+#         if self.datetime_performed:
+#             tmp += str(self.datetime_performed)
+#         return str(self.exercise.name + " Amount: " + tmp)
+# #:w
+
 # class WorkoutTask(ModelWithTimestamp):
 #      exercise_task = models.ForeignKey(ExerciseTask)
 #      workout = models.ForeignKey(Workout)

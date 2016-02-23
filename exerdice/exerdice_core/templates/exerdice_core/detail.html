@@ -1,11 +1,15 @@
 {% extends "exerdice_core/base.html" %}
 {% block title %}Detail{% endblock %}
 {% block content %}
+<div class="jumbotron">
 {% if result %}
-    <h3>{{result.id}} </h3>
-    {{bla}}
-    <p>{{result.exercise_tasks}}</p>
+    {% for item in result %}
+    <p>{{ item }} </p>
+    {% endfor %}
+
+
         {%else%}
     <p>No results available.</p>
 {% endif %}
 {% endblock %}
+    </div>
