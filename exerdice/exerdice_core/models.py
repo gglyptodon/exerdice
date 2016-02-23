@@ -47,6 +47,9 @@ class ExerciseTask(ModelWithTimestamp):
     amount = models.IntegerField(null=True, blank=True)
     datetime_performed = models.DateTimeField(null=True, blank=True)
     def str_for_display(self):
+        if self.exercise.description:
+            return "{}: {}".format(self.exercise.description, self.amount)
+
         return "{}: {}".format(self.exercise.name, self.amount)
     def __unicode__(self):
         return self.str_for_display()
